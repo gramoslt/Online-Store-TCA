@@ -24,6 +24,12 @@ struct ProductDomain {
     static let reducer = AnyReducer<
         State, Action, Environment
     >.combine(
+        AddToCartDomain.reducer.pullback(
+            state: \.addToCartState,
+            action: /ProductDomain.Action.addToCart,
+            environment: { _ in
+                AddToCartDomain.Environment()
+            }),
         .init { state, action, environment in
             switch action {
                 case .addToCart(.didTapPlusButton):
