@@ -13,9 +13,9 @@ struct Online_Store_TCAApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(store: Store(
-                initialState: CounterDomain.State(),
-                reducer: CounterDomain.reducer,
-                environment: CounterDomain.Environment()
+                initialState: AddToCartDomain.State(),
+                reducer: AddToCartDomain.reducer,
+                environment: AddToCartDomain.Environment()
             ))
         }
     }

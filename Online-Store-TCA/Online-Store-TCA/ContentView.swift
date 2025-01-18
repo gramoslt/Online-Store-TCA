@@ -8,40 +8,14 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct CounterDomain {
-    struct State: Equatable {
-        var counter = 0
-    }
-
-    enum Action: Equatable {
-        case increaseCounter
-        case decreaseCounter
-    }
-
-    struct Environment {
-
-    }
-
-    static let reducer = AnyReducer<State, Action, Environment> { state, action, environment in
-        switch action {
-            case .increaseCounter:
-                state.counter += 1
-                return .none
-            case .decreaseCounter:
-                state.counter -= 1
-                return .none
-        }
-    }
-}
-
 struct ContentView: View {
-    let store: Store<CounterDomain.State, CounterDomain.Action>
+    let store: Store<AddToCartDomain.State, AddToCartDomain.Action>
 
     var body: some View {
         WithViewStore(self.store) { viewStore in
             HStack {
                 Button {
-                    viewStore.send(.decreaseCounter)
+                    viewStore.send(.didTapMinusButton)
                 } label: {
                     Text("-")
                         .padding(10)
@@ -51,11 +25,11 @@ struct ContentView: View {
                 }
                 .buttonStyle(.plain)
 
-                Text(viewStore.state.counter.description)
+                Text(viewStore.state.count.description)
                     .padding(5)
 
                 Button {
-                    viewStore.send(.increaseCounter)
+                    viewStore.send(.didTapPlusButton)
                 } label: {
                     Text("+")
                         .padding(10)
@@ -72,9 +46,9 @@ struct ContentView: View {
 #Preview {
     ContentView(
         store: Store(
-            initialState: CounterDomain.State(),
-            reducer: CounterDomain.reducer,
-            environment: CounterDomain.Environment()
+            initialState: AddToCartDomain.State(),
+            reducer: AddToCartDomain.reducer,
+            environment: AddToCartDomain.Environment()
         )
     )
 }
