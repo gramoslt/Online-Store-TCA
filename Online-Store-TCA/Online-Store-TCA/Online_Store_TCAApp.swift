@@ -12,11 +12,7 @@ import ComposableArchitecture
 struct Online_Store_TCAApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(store: Store(
-                initialState: AddToCartDomain.State(),
-                reducer: AddToCartDomain.reducer,
-                environment: AddToCartDomain.Environment()
-            ))
+            ContentView()
         }
     }
 }

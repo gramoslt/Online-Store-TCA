@@ -9,46 +9,16 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ContentView: View {
-    let store: Store<AddToCartDomain.State, AddToCartDomain.Action>
 
     var body: some View {
-        WithViewStore(self.store) { viewStore in
-            HStack {
-                Button {
-                    viewStore.send(.didTapMinusButton)
-                } label: {
-                    Text("-")
-                        .padding(10)
-                        .background(.blue)
-                        .foregroundStyle(.white)
-                        .cornerRadius(10)
-                }
-                .buttonStyle(.plain)
-
-                Text(viewStore.state.count.description)
-                    .padding(5)
-
-                Button {
-                    viewStore.send(.didTapPlusButton)
-                } label: {
-                    Text("+")
-                        .padding(10)
-                        .background(.blue)
-                        .foregroundStyle(.white)
-                        .cornerRadius(10)
-                }
-                .buttonStyle(.plain)
-            }
-        }
+        PlusMinusButton(store: Store(
+            initialState: AddToCartDomain.State(),
+            reducer: AddToCartDomain.reducer,
+            environment: AddToCartDomain.Environment()
+        ))
     }
 }
 
 #Preview {
-    ContentView(
-        store: Store(
-            initialState: AddToCartDomain.State(),
-            reducer: AddToCartDomain.reducer,
-            environment: AddToCartDomain.Environment()
-        )
-    )
+    ContentView()
 }
