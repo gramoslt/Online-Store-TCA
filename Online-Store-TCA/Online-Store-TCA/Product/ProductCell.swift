@@ -40,7 +40,9 @@ struct ProductCell: View {
 
 #Preview {
     ProductCell(store: Store(
-        initialState: ProductDomain.State(product: Product.sample[0]),
+        initialState: ProductDomain.State(
+            id: UUID(),
+            product: Product.sample[0]),
         reducer: ProductDomain.reducer,
         environment: ProductDomain.Environment()
     ))
