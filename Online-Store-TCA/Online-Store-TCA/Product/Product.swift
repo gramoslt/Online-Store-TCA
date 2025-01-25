@@ -27,7 +27,7 @@ extension Product {
                 price: 49.99,
                 description: "High-quality wireless earbuds with noise cancellation.",
                 category: ".electronics",
-                imageString: "wireless_earbuds_image"
+                imageString: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
             ),
             Product(
                 id: 2,
@@ -35,7 +35,7 @@ extension Product {
                 price: 89.99,
                 description: "Lightweight running shoes for all terrains.",
                 category: ".sports",
-                imageString: "running_shoes_image"
+                imageString: "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg"
             ),
             Product(
                 id: 3,
@@ -43,7 +43,7 @@ extension Product {
                 price: 129.99,
                 description: "Elegant wooden coffee table with a natural finish.",
                 category: ".home",
-                imageString: "coffee_table_image"
+                imageString: "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg"
             ),
             Product(
                 id: 4,
@@ -51,7 +51,7 @@ extension Product {
                 price: 14.99,
                 description: "A timeless classic novel with an engaging story.",
                 category: ".books",
-                imageString: "classic_novel_image"
+                imageString: "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg"
             ),
             Product(
                 id: 5,
