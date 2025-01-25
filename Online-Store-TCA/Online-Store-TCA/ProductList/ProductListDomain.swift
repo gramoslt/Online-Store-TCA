@@ -11,6 +11,7 @@ import ComposableArchitecture
 struct ProductListDomain: Equatable {
     struct State: Equatable {
         var productList: IdentifiedArrayOf<ProductDomain.State> = []
+        var cartState: CartListDomain.State?
         var shouldOpenCart = false
     }
 
@@ -19,6 +20,7 @@ struct ProductListDomain: Equatable {
         case fetchProductResponse(TaskResult<[Product]>)
         case product(id: ProductDomain.State.ID, action: ProductDomain.Action)
         case setCart(isPresented: Bool)
+        case cart(CartListDomain.Action)
     }
 
     struct Environment {
@@ -33,6 +35,13 @@ struct ProductListDomain: Equatable {
             action: /ProductListDomain.Action.product(id:action:),
             environment: { _ in ProductDomain.Environment()}
         ),
+        CartListDomain.reducer
+            .optional()
+            .pullback(
+            state: \.cartState,
+            action: /Action.cart,
+            environment: { _ in CartListDomain.Environment()})
+        ,
         .init { state, action, environment in
             switch action {
                 case .fetchProducts:
@@ -57,11 +66,33 @@ struct ProductListDomain: Equatable {
                     return .none
                 case .product:
                     return .none
+                case .cart(let action):
+                    switch action {
+                        case .didPressCloseButton:
+                            state.shouldOpenCart = false
+                    }
+                    return .none
                 case .setCart(let isPresented):
                     state.shouldOpenCart = isPresented
+                    state.cartState = isPresented
+                    ? CartListDomain.State(
+                        cartItems: IdentifiedArray(
+                            uniqueElements: state.productList.compactMap { state in
+                                state.addToCartState.count > 0
+                                ? CartItemDomain.State(
+                                    id: UUID(),
+                                    cartItem: CartItem(
+                                        product: state.product,
+                                        quantity: state.count
+                                    )
+                                )
+                                : nil
+                            }
+                        )
+                    )
+                    : nil
                     return .none
             }
         }
     )
-    
 }
