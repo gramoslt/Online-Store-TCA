@@ -70,6 +70,15 @@ struct ProductListDomain: Equatable {
                     switch action {
                         case .didPressCloseButton:
                             state.shouldOpenCart = false
+                        case .cartItem(_,let action):
+                            switch action {
+                                case .deleteCartItem(let product):
+                                    guard let index = state.productList.firstIndex(
+                                        where: { $0.product.id == product.id }
+                                    ) else { return .none }
+                                    let productStateId = state.productList[index].id
+                                    state.productList[id: productStateId]?.count = 0
+                            }
                     }
                     return .none
                 case .setCart(let isPresented):

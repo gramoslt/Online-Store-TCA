@@ -37,16 +37,33 @@ struct CartCell: View {
                                 .font(.title)
                                 .fontWeight(.bold)
                         }
-                        Group {
-                            Text("Quantity: ")
-                            +
-                            Text("\(viewStore.state.cartItem.quantity)")
-                                .fontWeight(.bold)
-                        }
-                        .font(.title)
                     }
                 }
+                
+            }
+            ZStack {
+                Group {
+                    Text("Quantity: ")
+                    +
+                    Text("\(viewStore.state.cartItem.quantity)")
+                        .fontWeight(.bold)
+                }
+                .font(.title)
 
+                HStack {
+                    Spacer()
+                    Button {
+                        viewStore.send(
+                            .deleteCartItem(
+                                product: viewStore.cartItem.product
+                            )
+                        )
+                    } label: {
+                        Image(systemName: "trash.fill")
+                            .foregroundStyle(.red)
+                            .padding()
+                    }
+                }
             }
         }
         .font(.title2)

@@ -11,11 +11,12 @@ import ComposableArchitecture
 struct ContentView: View {
 
     var body: some View {
-        PlusMinusButton(store: Store(
-            initialState: AddToCartDomain.State(),
-            reducer: AddToCartDomain.reducer,
-            environment: AddToCartDomain.Environment()
-        ))
+        ProductListView(store:
+                            Store(
+                                initialState: ProductListDomain.State(), reducer: ProductListDomain.reducer,
+                                environment: ProductListDomain.Environment( fetchProducts: { Product.sample })
+                            )
+        )
     }
 }
 
